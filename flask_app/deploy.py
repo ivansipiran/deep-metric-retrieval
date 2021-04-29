@@ -1,9 +1,11 @@
 from flask import Flask,request, render_template, session
 from flask_uploads import UploadSet, configure_uploads, IMAGES
+from flask_ngrok import run_with_ngrok
 
 import infer_on_single_image as code_base
 import os
 app = Flask(__name__)
+run_with_ngrok(app)
 app.secret_key = os.urandom(24)
 photos = UploadSet('photos', IMAGES)
 app.config['UPLOADED_PHOTOS_DEST'] = 'static/temp'
@@ -65,4 +67,4 @@ def evaluateNew():
     return render_template("img_selected.html", filename = "")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
